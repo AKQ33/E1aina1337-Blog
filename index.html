@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>E1aina1337 · vibecoding & MC</title>
+<meta name="description" content="E1aina1337 的个人博客 · 一个苦逼的爱 vibecoding 和玩 MC CODM 的高二牲。">
+<meta name="theme-color" content="#05060a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c3aed'/%3E%3Cstop offset='1' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='Space Grotesk' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style">
+</head>
+<body>
+
+<!-- ============ Loading Overlay ============ -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">E</div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    <p class="loader-text">LOADING...</p>
+  </div>
+</div>
+
+<!-- ============ Custom Cursor ============ -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- ============ 背景层 ============ -->
+<div class="bg" aria-hidden="true">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
+  <div class="aurora aurora-4"></div>
+  <div class="aurora aurora-5"></div>
+  <!-- Colored light dots -->
+  <div class="light-dots">
+    <span class="ldot ldot-1"></span>
+    <span class="ldot ldot-2"></span>
+    <span class="ldot ldot-3"></span>
+    <span class="ldot ldot-4"></span>
+    <span class="ldot ldot-5"></span>
+    <span class="ldot ldot-6"></span>
+    <span class="ldot ldot-7"></span>
+    <span class="ldot ldot-8"></span>
+    <span class="ldot ldot-9"></span>
+    <span class="ldot ldot-10"></span>
+    <span class="ldot ldot-11"></span>
+    <span class="ldot ldot-12"></span>
+  </div>
+  <div class="grid-overlay"></div>
+  <canvas id="starfield"></canvas>
+  <div class="noise-overlay"></div>
+  <div class="vignette"></div>
+</div>
+
+<!-- ============ 顶部滚动进度条 ============ -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ============ 导航 ============ -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-text">E1aina1337</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about" data-nav="about">关于</a>
+    <a href="#project" data-nav="project">项目</a>
+    <a href="#videos" data-nav="videos">视频</a>
+    <a href="#contact" data-nav="contact">联系</a>
+  </div>
+  <a href="https://github.com/AKQ33" target="_blank" rel="noopener" class="nav-cta magnetic" data-magnetic>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+    GitHub
+  </a>
+</nav>
+
+<!-- ============ Hero ============ -->
+<section id="hero" class="hero">
+  <div class="hero-badge">
+    <span class="badge-dot" id="statusDot"></span>
+    <span id="statusText">在线</span>
+    <span class="badge-sep">·</span>
+    <span id="greetingText">余额不足中</span>
+  </div>
+
+  <h1 class="hero-title" id="heroTitle" aria-label="E1aina1337"></h1>
+
+  <p class="hero-subtitle">
+    <span id="typedText"></span><span class="typed-cursor" id="typedCursor"></span>
+  </p>
+
+  <div class="hero-cta">
+    <a href="https://skeet.asia" target="_blank" rel="noopener" class="btn btn-primary magnetic" data-magnetic>
+      <span class="btn-inner">访问 Skeet.Asia</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+    </a>
+    <a href="#about" class="btn btn-ghost magnetic" data-magnetic>
+      <span class="btn-inner">了解更多</span>
+      <span class="btn-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="hero-socials">
+    <a href="https://github.com/AKQ33" target="_blank" rel="noopener" class="social-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+      GitHub · AKQ33
+    </a>
+    <a href="https://b23.tv/dGwNisy" target="_blank" rel="noopener" class="social-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.453c.402 0 .872.132 1.128.316.296.216.442.41.721.803.297.411.544.804.834 1.215.247.345.575.437.925.437h2.132c.451 0 .699.297.554.642-.128.304-.456.415-.916.415H19.56c-.35 0-.678.102-.925.447-.29.411-.537.804-.834 1.206-.279.393-.425.587-.721.813-.256.184-.726.306-1.128.306h-.453c-.402 0-.862-.122-1.12-.306-.294-.226-.44-.42-.72-.813-.298-.402-.545-.795-.835-1.206-.247-.345-.575-.447-.925-.447H1.515c-.46 0-.788-.111-.916-.415-.145-.345.103-.642.554-.642h2.132c.35 0 .678-.092.925-.437.29-.411.537-.804.835-1.215.28-.393.426-.587.721-.803.258-.184.718-.316 1.12-.316h.453c.402 0 .862.132 1.12.316.294.216.44.41.72.803.299.411.546.804.836 1.215.247.345.575.437.925.437h5.682c.35 0 .678-.092.925-.437.29-.411.537-.804.835-1.215.28-.393.426-.587.721-.803.258-.184.718-.316 1.12-.316ZM.726 8.53h22.548c.68 0 1.232.55 1.232 1.229v9.493c0 .679-.552 1.229-1.232 1.229H.726A1.23 1.23 0 0 1-.504 19.252V9.76c0-.68.552-1.23 1.23-1.23Zm5.32 3.095a1.09 1.09 0 0 0-1.09 1.09v2.54a1.09 1.09 0 0 0 2.18 0v-2.54a1.09 1.09 0 0 0-1.09-1.09Zm12.906 0a1.09 1.09 0 0 0-1.09 1.09v2.54a1.09 1.09 0 0 0 2.18 0v-2.54a1.09 1.09 0 0 0-1.09-1.09Z"/></svg>
+      Bilibili · E1aina1337-B
+    </a>
+    <a href="https://skeet.asia" target="_blank" rel="noopener" class="social-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Skeet.Asia
+    </a>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>SCROLL</span>
+    <div class="scroll-hint-line"></div>
+  </div>
+</section>
+
+<!-- ============ 跑马灯 ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">E1aina1337</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">vibecoding</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">SKEET INJECTION</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">MINECRAFT</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">伊蕾娜 / Elaina</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">余额不足中</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">随机产生一些想法</span>
+    <span class="marquee-sep">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">E1aina1337</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">vibecoding</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">SKEET INJECTION</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">MINECRAFT</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">伊蕾娜 / Elaina</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">余额不足中</span>
+    <span class="marquee-sep">✦</span>
+    <span class="marquee-item">随机产生一些想法</span>
+    <span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- ============ 关于 ============ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">01 / About</span>
+      <h2 class="section-title">关于<span class="grad-text">我</span></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="glass-card about-card reveal" data-dir="left">
+        <div class="about-quote-mark">“</div>
+        <p class="about-text">你好，我是 E1aina1337。</p>
+        <p class="about-text">我沉迷 vibecoding —— 所以现在是个 AI 魔怔人，余额不足中。</p>
+        <p class="about-text">平时会研究一些新东西，研究各种奇怪的玩法，只要是好玩的，我所想做的，你们建议我做的，我都会想试试看。</p>
+        <p class="about-text">目前主要精力放在个人项目 Skeet Injection 上 —— 官网在 Skeet.Asia，欢迎来看看。</p>
+        <div class="about-signature">
+          <span class="sig-line"></span>
+          <span class="sig-text">— E1aina1337</span>
+        </div>
+      </div>
+
+      <aside class="glass-card tags-card reveal" data-dir="rightup">
+        <h3 class="tags-title">兴趣标签</h3>
+        <div class="tags">
+          <span class="tag">vibecoding</span>
+          <span class="tag">Minecraft</span>
+          <span class="tag">我的手艺黑客研发</span>
+          <span class="tag">随机产生一些想法</span>
+          <span class="tag tag-elaina">伊蕾娜 / Elaina</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">想法 / ideas</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">2 个</span>
+            <span class="stat-label">主要爱好</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1 个</span>
+            <span class="stat-label">长期项目</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="about-actions reveal" data-dir="up">
+      <a href="https://github.com/AKQ33" target="_blank" rel="noopener" class="btn btn-ghost magnetic" data-magnetic>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+        <span class="btn-inner">GitHub</span>
+      </a>
+      <a href="https://b23.tv/dGwNisy" target="_blank" rel="noopener" class="btn btn-ghost magnetic" data-magnetic>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.453c.402 0 .872.132 1.128.316.296.216.442.41.721.803.297.411.544.804.834 1.215.247.345.575.437.925.437h2.132c.451 0 .699.297.554.642-.128.304-.456.415-.916.415H19.56c-.35 0-.678.102-.925.447-.29.411-.537.804-.834 1.206-.279.393-.425.587-.721.813-.256.184-.726.306-1.128.306h-.453c-.402 0-.862-.122-1.12-.306-.294-.226-.44-.42-.72-.813-.298-.402-.545-.795-.835-1.206-.247-.345-.575-.447-.925-.447H1.515c-.46 0-.788-.111-.916-.415-.145-.345.103-.642.554-.642h2.132c.35 0 .678-.092.925-.437.29-.411.537-.804.835-1.215.28-.393.426-.587.721-.803.258-.184.718-.316 1.12-.316h.453c.402 0 .862.132 1.12.316.294.216.44.41.72.803.299.411.546.804.836 1.215.247.345.575.437.925.437h5.682c.35 0 .678-.092.925-.437.29-.411.537-.804.835-1.215.28-.393.426-.587.721-.803.258-.184.718-.316 1.12-.316ZM.726 8.53h22.548c.68 0 1.232.55 1.232 1.229v9.493c0 .679-.552 1.229-1.232 1.229H.726A1.23 1.23 0 0 1-.504 19.252V9.76c0-.68.552-1.23 1.23-1.23Zm5.32 3.095a1.09 1.09 0 0 0-1.09 1.09v2.54a1.09 1.09 0 0 0 2.18 0v-2.54a1.09 1.09 0 0 0-1.09-1.09Zm12.906 0a1.09 1.09 0 0 0-1.09 1.09v2.54a1.09 1.09 0 0 0 2.18 0v-2.54a1.09 1.09 0 0 0-1.09-1.09Z"/></svg>
+        <span class="btn-inner">B 站</span>
+      </a>
+      <a href="https://skeet.asia" target="_blank" rel="noopener" class="btn btn-primary magnetic" data-magnetic>
+        <span class="btn-inner">Skeet.Asia</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 项目 ============ -->
+<section id="project" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">02 / Project</span>
+      <h2 class="section-title">Skeet <span class="grad-text">Injection</span></h2>
+      <p class="section-desc">SKEET — 布吉岛注入客户端。支持 Native 绕过，适配各类服务器环境。</p>
+    </div>
+
+    <div class="glass-card project-card reveal" data-dir="down">
+      <div class="project-hero">
+        <div class="project-logo-wrap">
+          <div class="project-logo">S</div>
+          <div class="project-logo-glow"></div>
+        </div>
+        <div class="project-hero-info">
+          <div class="project-meta">
+            <span class="meta-pill meta-pill-hot">🔥 Native 绕过</span>
+            <span class="meta-pill">MC 注入客户端</span>
+            <span class="meta-pill">布吉岛</span>
+          </div>
+          <h3>布吉岛注入 · 布吉岛绕过</h3>
+          <p>Skeet Injection —— MC 热注入客户端，支持本地人 Native 绕过，适配各类服务器。</p>
+        </div>
+        <div class="project-hero-cta">
+          <a href="https://skeet.asia" target="_blank" rel="noopener" class="btn btn-primary magnetic" data-magnetic>
+            <span class="btn-inner">访问官网</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <a href="https://skeet.asia/docs" target="_blank" rel="noopener" class="btn btn-ghost magnetic" data-magnetic>
+            <span class="btn-inner">查看文档</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature reveal" data-dir="left">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="feature-body">
+            <h4>官网文档</h4>
+            <p>完整的接入文档，从入门到热注入全流程，5 分钟上手。</p>
+          </div>
+        </div>
+        <div class="feature reveal" data-dir="right">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+          </div>
+          <div class="feature-body">
+            <h4>持续维护</h4>
+            <p>紧跟 MC 版本更新，第一时间适配新版本，社区反馈响应快。</p>
+          </div>
+        </div>
+        <div class="feature reveal" data-dir="up">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="feature-body">
+            <h4>轻量高效</h4>
+            <p>低占用、高性能，对游戏本体无侵入，运行无感知。</p>
+          </div>
+        </div>
+        <div class="feature reveal" data-dir="rightdown">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          </div>
+          <div class="feature-body">
+            <h4>热注入</h4>
+            <p>无需重启客户端，运行时即可加载和卸载，丝滑无感。</p>
+          </div>
+        </div>
+        <div class="feature reveal" data-dir="leftup">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="feature-body">
+            <h4>社区支持</h4>
+            <p>活跃的社区和反馈通道，问题有人回答，玩法有人一起。</p>
+          </div>
+        </div>
+        <div class="feature reveal" data-dir="down">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+          </div>
+          <div class="feature-body">
+            <h4>可扩展架构</h4>
+            <p>模块化设计，方便接入自定义功能，二次开发友好。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 视频 ============ -->
+<section id="videos" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">03 / Videos</span>
+      <h2 class="section-title">视频<span class="grad-text">展示</span></h2>
+      <p class="section-desc">最近的几个玩法实录，全部在 Bilibili 上，点封面即播。</p>
+    </div>
+
+    <div class="video-grid">
+      <!-- Video 1 -->
+      <a href="https://b23.tv/pZSUkqr" target="_blank" rel="noopener" class="glass-card video-card reveal" data-dir="left">
+        <div class="video-thumb-wrap">
+          <img class="video-thumb" src="https://i1.hdslb.com/bfs/archive/31fc29cc76a1d30ee470067063835bd72e05605e.jpg" alt="Skeet Injection 本地人 Native 绕过" loading="lazy">
+          <div class="video-thumb-overlay"></div>
+          <div class="video-play">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-duration">1:10</div>
+          <div class="video-views">1009 播放</div>
+        </div>
+        <div class="video-info">
+          <span class="video-tag">Skeet Injection</span>
+          <h3>Skeet Injection 拥有本地人 Native 绕过</h3>
+          <p>78.91%5 刀死双伤暴击和良子大胃袋 Velocity 在岛岛岛。</p>
+        </div>
+      </a>
+
+      <!-- Video 2 -->
+      <a href="https://b23.tv/JrlZIEf" target="_blank" rel="noopener" class="glass-card video-card reveal" data-dir="rightdown">
+        <div class="video-thumb-wrap">
+          <img class="video-thumb" src="https://i0.hdslb.com/bfs/archive/adaa84cde1a4226ff7331df5f5c5af55c3bbda2e.jpg" alt="我的手艺布吉岛伺服器全反" loading="lazy">
+          <div class="video-thumb-overlay"></div>
+          <div class="video-play">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-duration">2:59</div>
+          <div class="video-views">1635 播放</div>
+        </div>
+        <div class="video-info">
+          <span class="video-tag">我的手艺</span>
+          <h3>我的手艺布吉岛伺服器全反 / 00 velocity 吓哭绿玩</h3>
+        </div>
+      </a>
+
+      <!-- Video 3 -->
+      <a href="https://b23.tv/km8OoPU" target="_blank" rel="noopener" class="glass-card video-card reveal" data-dir="up">
+        <div class="video-thumb-wrap">
+          <img class="video-thumb" src="https://i1.hdslb.com/bfs/archive/2efcabb61c5c295842c6ed4c66b8a22d23acf3a8.jpg" alt="1000 万以内最硬的 velocity" loading="lazy">
+          <div class="video-thumb-overlay"></div>
+          <div class="video-play">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-duration">3:04</div>
+          <div class="video-views">1136 播放</div>
+        </div>
+        <div class="video-info">
+          <span class="video-tag">Velocity</span>
+          <h3>1000 万以内最硬的 velocity？。</h3>
+        </div>
+      </a>
+    </div>
+
+    <div class="videos-cta reveal" data-dir="leftdown">
+      <a href="https://b23.tv/dGwNisy" target="_blank" rel="noopener" class="btn btn-ghost magnetic" data-magnetic>
+        <span class="btn-inner">看更多视频 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 生图工具 ============ -->
+<section id="generator" class="generator-section">
+  <div class="container">
+    <div class="generator-header reveal" data-dir="left">
+      <span class="section-tag">04 / AI Art</span>
+      <h2 class="generator-title">AI <span class="grad-text">生图</span></h2>
+      <p class="generator-desc">用文字描述你的想象，AI 帮你画出来。</p>
+    </div>
+
+    <div class="generator-card reveal" data-dir="right">
+      <div class="generator-controls">
+        <div class="control-row">
+          <label class="control-label">API Key</label>
+          <input type="password" id="apiKey" class="control-input" value="sk-Qv7eLVXYELGnOPTQ9TqD2uSuvJu3FV2l" placeholder="输入 API Key">
+        </div>
+
+        <div class="control-row">
+          <label class="control-label">API 端点</label>
+          <input type="text" id="apiEndpoint" class="control-input" value="https://token.sensenova.cn/v1/images/generations" placeholder="https://token.sensenova.cn/v1/images/generations">
+        </div>
+
+        <div class="control-row">
+          <label class="control-label">模型</label>
+          <input type="text" id="apiModel" class="control-input" value="senseNova-Vision" placeholder="输入模型名称，如 senseNova-Vision">
+        </div>
+
+        <div class="control-row control-row-prompt">
+          <label class="control-label">提示词</label>
+          <textarea id="promptInput" class="control-input control-textarea" rows="3" placeholder="描述你想要的图片，例如：一只在星空下跳跃的蓝色猫咪，霓虹风格"></textarea>
+        </div>
+
+        <button id="generateBtn" class="btn btn-primary magnetic" data-magnetic>
+          <span class="btn-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg>
+            生成图片
+          </span>
+        </button>
+      </div>
+
+      <div class="generator-output">
+        <div id="outputArea" class="output-area">
+          <div class="output-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <p>生成的图片会显示在这里</p>
+          </div>
+        </div>
+
+        <div id="loaderArea" class="output-loading" style="display:none;">
+          <div class="loading-spinner"></div>
+          <p>AI 正在创作中...</p>
+        </div>
+
+        <div id="errorArea" class="output-error" style="display:none;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <p id="errorMsg"></p>
+        </div>
+      </div>
+
+      <div id="downloadBar" class="download-bar" style="display:none;">
+        <button id="downloadBtn" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          下载图片
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 联系 / 页脚 ============ -->
+<footer id="contact" class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-cta">
+        <span class="section-tag">04 / Contact</span>
+        <h2 class="footer-title">一起<span class="grad-text">玩玩</span></h2>
+        <p class="footer-desc">有想法？有合作？或者只是想聊聊 MC 和 vibecoding？<br>点一下复制，私我聊聊。</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-item reveal" data-dir="left">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </div>
+          <div class="contact-body">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">AKQ33</span>
+          </div>
+        </div>
+
+        <div class="contact-item reveal" data-dir="rightup">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </div>
+          <div class="contact-body">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">935752842@qq.com</span>
+          </div>
+        </div>
+
+        <div class="contact-item reveal" data-dir="rightdown">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="contact-body">
+            <span class="contact-label">QQ</span>
+            <span class="contact-value">935752842</span>
+          </div>
+        </div>
+
+        <div class="contact-item reveal" data-dir="leftup">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.453c.402 0 .872.132 1.128.316.296.216.442.41.721.803.297.411.544.804.834 1.215.247.345.575.437.925.437h2.132c.451 0 .699.297.554.642-.128.304-.456.415-.916.415H19.56c-.35 0-.678.102-.925.447-.29.411-.537.804-.834 1.206-.279.393-.425.587-.721.813-.256.184-.726.306-1.128.306h-.453c-.402 0-.862-.122-1.12-.306-.294-.226-.44-.42-.72-.813-.298-.402-.545-.795-.835-1.206-.247-.345-.575-.447-.925-.447H1.515c-.46 0-.788-.111-.916-.415-.145-.345.103-.642.554-.642h2.132c.35 0 .678-.092.925-.437.29-.411.537-.804.835-1.215.28-.393.426-.587.721-.803.258-.184.718-.316 1.12-.316h.453c.402 0 .862.132 1.12.316.294.216.44.41.72.803.299.411.546.804.836 1.215.247.345.575.437.925.437h5.682c.35 0 .678-.092.925-.437.29-.411.537-.804.835-1.215.28-.393.426-.587.721-.803.258-.184.718-.316 1.12-.316ZM.726 8.53h22.548c.68 0 1.232.55 1.232 1.229v9.493c0 .679-.552 1.229-1.232 1.229H.726A1.23 1.23 0 0 1-.504 19.252V9.76c0-.68.552-1.23 1.23-1.23Zm5.32 3.095a1.09 1.09 0 0 0-1.09 1.09v2.54a1.09 1.09 0 0 0 2.18 0v-2.54a1.09 1.09 0 0 0-1.09-1.09Zm12.906 0a1.09 1.09 0 0 0-1.09 1.09v2.54a1.09 1.09 0 0 0 2.18 0v-2.54a1.09 1.09 0 0 0-1.09-1.09Z"/></svg>
+          </div>
+          <div class="contact-body">
+            <span class="contact-label">Bilibili</span>
+            <span class="contact-value">E1aina1337-B</span>
+          </div>
+        </div>
+
+        <div class="contact-item reveal" data-dir="leftdown">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="contact-body">
+            <span class="contact-label">圈名</span>
+            <span class="contact-value">E1aina1337</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          <span>© 2025 E1aina1337</span>
+          <span class="dot-sep">·</span>
+          <span>Made with vibecoding & AI</span>
+          <span class="dot-sep">·</span>
+          <span>余额不足中</span>
+        </div>
+        <div class="footer-bottom-right">
+          <a href="#hero" class="footer-top-btn" id="backToTop">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+            回顶部
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ Keyboard Help Overlay ============ -->
+<div class="kbd-help" id="kbdHelp" aria-hidden="true">
+  <div class="kbd-help-inner">
+    <h3>键盘快捷键</h3>
+    <div class="kbd-list">
+      <div class="kbd-row"><span class="kbd-key">J</span> 向下滚动</div>
+      <div class="kbd-row"><span class="kbd-key">K</span> 向上滚动</div>
+      <div class="kbd-row"><span class="kbd-key">Home</span> 跳到顶部</div>
+      <div class="kbd-row"><span class="kbd-key">End</span> 跳到底部</div>
+      <div class="kbd-row"><span class="kbd-key">?</span> 显示/隐藏帮助</div>
+      <div class="kbd-row"><span class="kbd-key">↑↑↓↓←→←→BA</span> Konami Code</div>
+    </div>
+    <p class="kbd-hint">按 ? 或 Esc 关闭</p>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
